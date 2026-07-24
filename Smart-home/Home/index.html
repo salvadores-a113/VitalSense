@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard de Energía del Hogar</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="dashboard-container">
+        <div id="mapa-container">
+            <img src="plano-casa1.svg" alt="Plano de la Casa" id="plano-casa">
+        </div>
+        <div id="graficas-container">
+            <div class="grafico">
+                <canvas id="grafico-consumo-barras"></canvas>
+            </div>
+            <div class="grafico">
+                <canvas id="grafico-consumo-lineas"></canvas>
+            </div>
+            <div id="panel-info">
+                <button id="boton-cambiar-datos">Cambiar Datos</button>
+                <div id="panel-datos-manuales" style="display: none;">
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

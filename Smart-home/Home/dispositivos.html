@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispositivos de la Habitación</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
+<body>
+    <div id="dashboard-container">
+        <div id="dispositivos-container">
+            <h1>Dispositivos de <span id="nombre-habitacion"></span></h1>
+            <ul id="lista-dispositivos">
+            </ul>
+        </div>
+        <div id="graficas-container">
+            <div class="grafico">
+                <h2>Consumo de Aparatos</h2>
+                <canvas id="grafico-consumo-aparatos"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="dispositivos.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Monitoreo Energético</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="bg-primary text-white p-3 mb-4">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="m-0">Dashboard de Energía</h1>
+                <div id="ultima-actualizacion" class="text-white-50"></div>
+            </div>
+        </header>
+
+        <div class="row">
+            <!-- Mapa de la casa -->
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title mb-0">Plano de la Casa</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="mapa-container" style="position: relative;">
+                            <img src="plano-casa1.svg" alt="Plano de la Casa" id="plano-casa" class="img-fluid">
+                            <!-- Los indicadores se generarán dinámicamente aquí -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gráficos -->
+            <div class="col-lg-6">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">Consumo por Sala</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="grafico-consumo-barras" height="250"></canvas>
+                    </div>
+                </div>
+
+                <div class="card shadow">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="card-title mb-0">Historial de Consumo (Últimos 7 días)</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="grafico-consumo-lineas" height="250"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla de resumen -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-header bg-secondary text-white">
+                        <h5 class="card-title mb-0">Resumen de Consumo</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Sala</th>
+                                        <th>Dispositivos</th>
+                                        <th>Consumo Total (kWh)</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tabla-resumen">
+                                    <!-- Datos se cargarán con JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

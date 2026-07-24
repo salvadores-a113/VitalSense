@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Energy</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <h1>Dispositivos Registrados</h1>
+    <ul id="lista-dispositivos"></ul>
+
+    <h2>Consumo de Energía</h2>
+    <select id="dispositivo-select" onchange="cargarConsumo()">
+        <option value="1">Aire Acondicionado</option>
+        <option value="2">Refrigerador</option>
+    </select>
+
+    <canvas id="graficoConsumo"></canvas>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("get_dispositivos.php")
+                .then(response => response.json())
+                .then(data => {
+                    let lista = document.getElementById("lista-dispositivos");
+                    let select = document.getElementById("dispositivo-select");
+                    lista.innerHTML = "";
+                    select.innerHTML = "";
+
+                    data.forEach(dispositivo => {
+                        lista.innerHTML += `<li>${dispositivo.nombre} - ${dispositivo.ubicacion}</li>`;
+                        select.innerHTML += `<option value="${dispositivo.id}">${dispositivo.nombre}</option>`;
+                    });
+
+                    cargarConsumo();
+                });
+        });
+
+        function cargarConsumo() {
+            let dispositivo_id = document.getElementById("dispositivo-select").value;
+
+            fetch(`get_consumo.php?id=${dispositivo_id}`)
+                .then(response => response.json())
+                .then(data => {
+                    let labels = data.map(item => item.fecha);
+                    let valores = data.map(item => item.consumo_kwh);
+
+                    let ctx = document.getElementById("graficoConsumo").getContext("2d");
+
+                    if (window.myChart) {
+                        window.myChart.destroy();
+                    }
+
+                    window.myChart = new Chart(ctx, {
+                        type: "line",
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: "Consumo (kWh)",
+                                data: valores,
+                                borderColor: "blue",
+                                fill: false
+                            }]
+                        }
+                    });
+                });
+        }
+    </script>
+<div id="reporteSalas"></div>
+<canvas id="graficoSalas"></canvas>
+</body>
+</html>

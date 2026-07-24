@@ -1,0 +1,65 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F5F5F5;
+    color: #333;
+}
+
+#dashboard-container {
+    display: flex;
+    width: 100%;
+    height: 100vh;
+}
+
+#mapa-container {
+    position: relative; /* Importante para posicionar los indicadores */
+}
+
+#dispositivos-container {
+    width: 50%;
+    padding: 20px;
+    background-color: #FFFFFF;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+#graficas-container {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.grafico {
+    flex: 1;
+    margin-bottom: 20px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+#lista-dispositivos {
+    list-style: none;
+    padding: 0;
+}
+
+#lista-dispositivos li {
+    margin-bottom: 10px;
+}
+
+#plano-casa {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    max-width: 850px; /* Establece un ancho máximo para evitar que sea demasiado grande */
+    height: auto; /* La altura se ajustará automáticamente para mantener la proporción */
+}
+
+/* Estilos para los indicadores de energía */
+.indicador-energia {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: green;
+    cursor: pointer;
+}

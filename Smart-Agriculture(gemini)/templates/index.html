@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información de la Planta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #info {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .error {
+            color: red;
+        }
+        img {
+            margin-top: 10px;
+            max-width: 100%;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        async function obtenerInformacionPlanta() {
+            const planta = document.getElementById("planta").value.trim();
+            const infoDiv = document.getElementById("info");
+            const errorDiv = document.getElementById("error");
+            
+            infoDiv.innerHTML = "";
+            errorDiv.textContent = "";
+            
+            if (!planta) {
+                errorDiv.textContent = "Por favor, ingresa el nombre de una planta.";
+                return;
+            }
+            
+            try {
+                const response = await fetch('/get_planta_info', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ planta })
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || "Error al obtener datos");
+                }
+                
+                mostrarInformacion(data);
+            } catch (error) {
+                errorDiv.textContent = "Error: " + error.message;
+            }
+        }
+        
+        function mostrarInformacion(data) {
+            const infoDiv = document.getElementById("info");
+            infoDiv.innerHTML = `
+                <p><strong>Cuidado:</strong> ${data.info.cuidado}</p>
+                <p><strong>Riego:</strong> ${data.info.riego}</p>
+                <p><strong>Luz:</strong> ${data.info.luz}</p>
+                <p><strong>Uso:</strong> ${data.info.uso}</p>
+                ${data.image_url ? `<img src="${data.image_url}" alt="Imagen de la planta">` : "<p>Imagen no disponible</p>"}
+            `;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Información sobre la Planta</h1>
+        <label for="planta">Nombre de la Planta:</label>
+        <input type="text" id="planta" placeholder="Ej. Aloe Vera">
+        <button onclick="obtenerInformacionPlanta()">Obtener Información</button>
+        <p id="error" class="error"></p>
+        <div id="info"></div>
+    </div>
+</body>
+</html>
